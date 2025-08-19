@@ -1,0 +1,4 @@
+2 5.50 rice
+3 9.50 beans
+2 59.90 steak
+4 12.59 milk galon

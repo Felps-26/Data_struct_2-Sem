@@ -1,0 +1,4 @@
+12 12000.00 André
+34 800.00 Bruno
+73 2345.90 Maria
+90 2342449.99 gustavo cabral
