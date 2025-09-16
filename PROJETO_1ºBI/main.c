@@ -2,7 +2,7 @@
 #include "processo.h"
 
 int main() {
-    const char *arquivo = "TJDFT_AmostraMaior.csv"; // altere aqui
+    const char *arquivo = "TJDFT_amostra.csv"; // altere aqui
 
     printf("Total de processos: %d\n", contar_processos(arquivo));
 

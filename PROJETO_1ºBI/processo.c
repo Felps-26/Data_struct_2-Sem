@@ -46,14 +46,14 @@ int ler_processo(FILE *fp, Processo *p) {
             case 16: p->flag_infancia = atoi(token); break;
             case 17: strncpy(p->decisao, token, 11); p->decisao[11] = '\0'; break;
             case 18: strncpy(p->dt_resolvido, token, 11); p->dt_resolvido[11] = '\0'; break;
-            case 19: p->cnm1 = atoi(token); break;
+            case 19: p->cnm1 = strlen(token) ? atoi(token) : 0; break;
             case 20: p->primeirasentm1 = atoi(token); break;
             case 21: p->baixm1 = atoi(token); break;
             case 22: p->decm1 = atoi(token); break;
             case 23: p->mpum1 = atoi(token); break;
-            case 24: p->julgadom1 = atoi(token); break;
-            case 25: p->desm1 = atoi(token); break;
-            case 26: p->susm1 = atoi(token); break;
+            case 24: p->julgadom1 = strlen(token) ? atoi(token) : 0; break;
+            case 25: p->desm1 = strlen(token) ? atoi(token) : 0; break;
+            case 26: p->susm1 = strlen(token) ? atoi(token) : 0; break;
         }
         token = strtok(NULL, ";");
         i++;
@@ -176,7 +176,7 @@ double calcular_percentual_meta1(const char* filename) {
     }
     fclose(fp);
     if (cnm1 + desm1 - susm1 == 0) return 0.0;
-    return 100.0 * (julgadom1 / (cnm1 + desm1 - susm1));
+    return 100.0 * ((double)julgadom1 / (cnm1 + desm1 - susm1));
 }
 
 // --------- Gera CSV só com processos julgados (mérito) -------------
