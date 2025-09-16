@@ -12,6 +12,9 @@ typedef struct {
     int recurso;
     int id_ultimo_oj;
     char dt_recebimento[12];
+    int ano_recebimento;     
+    int mes_recebimento;     
+    int dia_recebimento;     
     int id_ultima_classe;
     int flag_violencia_domestica;
     int flag_feminicidio;

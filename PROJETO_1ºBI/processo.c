@@ -15,16 +15,28 @@ int ler_processo(FILE *fp, Processo *p) {
     int i = 0;
     while (token) {
         switch(i) {
-            case 0: strncpy(p->id_processo, token, 31); break;
-            case 1: strncpy(p->numero_sigilo, token, 63); break;
-            case 2: strncpy(p->sigla_grau, token, 7); break;
-            case 3: strncpy(p->procedimento, token, 63); break;
-            case 4: strncpy(p->ramo_justica, token, 31); break;
-            case 5: strncpy(p->sigla_tribunal, token, 15); break;
+            case 0: strncpy(p->id_processo, token, 31); p->id_processo[31] = '\0'; break;
+            case 1: strncpy(p->numero_sigilo, token, 63); p->numero_sigilo[63] = '\0'; break;
+            case 2: strncpy(p->sigla_grau, token, 7); p->sigla_grau[7] = '\0'; break;
+            case 3: strncpy(p->procedimento, token, 63); p->procedimento[63] = '\0'; break;
+            case 4: strncpy(p->ramo_justica, token, 31); p->ramo_justica[31] = '\0'; break;
+            case 5: strncpy(p->sigla_tribunal, token, 15); p->sigla_tribunal[15] = '\0'; break;
             case 6: p->id_tribunal = atoi(token); break;
             case 7: p->recurso = atoi(token); break;
             case 8: p->id_ultimo_oj = atoi(token); break;
-            case 9: strncpy(p->dt_recebimento, token, 11); break;
+            case 9: {
+                strncpy(p->dt_recebimento, token, 11);
+                p->dt_recebimento[11] = '\0'; 
+                int ano = 0, mes = 0, dia = 0;
+                if (sscanf(token, "%d-%d-%d", &ano, &mes, &dia) == 3) {
+                    p->ano_recebimento = ano;
+                    p->mes_recebimento = mes;
+                    p->dia_recebimento = dia;
+                } else {
+                    p->ano_recebimento = p->mes_recebimento = p->dia_recebimento = 0;
+                }
+                break;
+            }
             case 10: p->id_ultima_classe = atoi(token); break;
             case 11: p->flag_violencia_domestica = atoi(token); break;
             case 12: p->flag_feminicidio = atoi(token); break;
@@ -32,8 +44,8 @@ int ler_processo(FILE *fp, Processo *p) {
             case 14: p->flag_quilombolas = atoi(token); break;
             case 15: p->flag_indigenas = atoi(token); break;
             case 16: p->flag_infancia = atoi(token); break;
-            case 17: strncpy(p->decisao, token, 11); break;
-            case 18: strncpy(p->dt_resolvido, token, 11); break;
+            case 17: strncpy(p->decisao, token, 11); p->decisao[11] = '\0'; break;
+            case 18: strncpy(p->dt_resolvido, token, 11); p->dt_resolvido[11] = '\0'; break;
             case 19: p->cnm1 = atoi(token); break;
             case 20: p->primeirasentm1 = atoi(token); break;
             case 21: p->baixm1 = atoi(token); break;
@@ -164,7 +176,7 @@ double calcular_percentual_meta1(const char* filename) {
     }
     fclose(fp);
     if (cnm1 + desm1 - susm1 == 0) return 0.0;
-    return 100.0 * julgadom1 / (cnm1 + desm1 - susm1);
+    return 100.0 * (julgadom1 / (cnm1 + desm1 - susm1));
 }
 
 // --------- Gera CSV só com processos julgados (mérito) -------------
