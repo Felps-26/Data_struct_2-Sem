@@ -2,7 +2,7 @@
 #include "processo.h"
 
 int main() {
-    const char *arquivo = "TJDFT_amostra.csv"; // altere aqui
+    const char *arquivo = "TJDFT_amostra.csv"; // altere aqui para testar outros arquivos
 
     printf("Total de processos: %d\n", contar_processos(arquivo));
 
@@ -10,7 +10,7 @@ int main() {
     buscar_dt_mais_antiga(arquivo, id_antiga, data_antiga);
     printf("Processo mais antigo: %s na data %s\n", id_antiga, data_antiga);
 
-    // Voce pode exibir as causas assim:
+    // Exibição das causas:
     printf("Violencia Domestica: %d\n", contar_causa(arquivo, 0));
     printf("Feminicidio: %d\n", contar_causa(arquivo, 1));
     printf("Ambiental: %d\n", contar_causa(arquivo, 2));

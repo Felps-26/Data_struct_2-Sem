@@ -24,7 +24,7 @@ int ler_processo(FILE *fp, Processo *p) {
             case 6: p->id_tribunal = atoi(token); break;
             case 7: p->recurso = atoi(token); break;
             case 8: p->id_ultimo_oj = atoi(token); break;
-            case 9: {
+            case 9: { // separa em ano, mes, dia -> dt_recebimento
                 strncpy(p->dt_recebimento, token, 11);
                 p->dt_recebimento[11] = '\0'; 
                 int ano = 0, mes = 0, dia = 0;
@@ -144,7 +144,7 @@ void calcular_dias(const char* filename) {
     Processo p;
     printf("id_processo;dias_entre_recebimento_e_resolvido\n");
     while(ler_processo(fp, &p)) {
-        // Exige data no formato YYYY-MM-DD
+        // Exige data no formato AAAA-MM-DD
         if (strlen(p.dt_recebimento) < 10 || strlen(p.dt_resolvido) < 10)
             continue;
         int y1, m1, d1, y2, m2, d2;
